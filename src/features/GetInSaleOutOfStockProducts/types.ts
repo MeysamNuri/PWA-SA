@@ -1,0 +1,30 @@
+export interface OutOfStockProductResponse {
+    mainGroupCode: string;
+    mainGroupName: string;
+    sideGroupCode: string;
+    sideGroupName: string;
+    productCode: string;
+    productCode2: string;
+    productName: string;
+    purchasePrice: number;
+    formattedPurchasePrice: string;
+    purchasePriceUOM: string;
+    salesPrice: number;
+    formattedSalesPrice: string;
+    salesPriceUOM: string;
+    averageSalesUnitPrice: number;
+    formattedAverageSalesUnitPrice: string;
+    averageSalesUnitPriceUOM: string;
+    salesUnitPrice: number;
+    formattedSalesUnitPrice: string;
+    salesUnitPriceUOM: string;
+    salesAmount: number;
+    formattedSalesAmount: string;
+    salesAmountUOM: string;
+    salesRevenue: number;
+    formattedSalesRevenue: string;
+    salesRevenueUOM: string;
+    salesQuantity: number;
+    exist: number;
+    needQuantity: number;
+}

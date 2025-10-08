@@ -1,0 +1,21 @@
+{
+  "PhoneNumber_IsNotValid": "شماره موبایل شما معتبر نمیباشد",
+  "PhoneNumber_Or_Password_Is_Not_Valid": "شماره موبایل و یا کلمه عبور شما اشتباه میباشد",
+  "Unauthorized": "دسترسی غیر مجاز",
+  "Internal_Server_Error": "خطایی در سرور مجددا چک نمایید ",
+  "PhoneNumber_Not_Found": "شماره تلفن پیدا نشد",
+  "Password_Must_Not_Be_Less_Than_8_Characters":"کلمه عبور نمیتواند کمتر از 8 کاراکتر باشد",
+  "PhoneNumber_Is_Required": "شماره موبایل الزامی میباشد",
+  "Password_Is_Required": "کلمه عبور الزامی میباشد",
+  "PhoneNumber_Is_Exist":"برای این شماره موبایل قبلا ثبت نام انجام شده است",
+  "UserNameAndPasswordCanNotLoginToMyHoloo":"کلمه عبور وارد شده صحیح نیست",
+  "UserNameNotExistOnMyHoloo":"کلمه عبور و تکرار کلمه عبور مشابه نیستند .",
+  "Code_Is_Required" :"کد تایید الزامی میباشد",
+  "Use_The_Previous_Code_Or_Wait": "از کد قبلی استفاده کن یا منتظر بمان ",
+  "Not_Found_Serial_For_This_User": "برای این کاربر سریال نرم افزار هلو یافت نشد ",
+  "Required_To_Complete_MyHoloo_Profile": "برای استفاده از امکانات این برنامه لطفا مراحل عضویت در MyHoloo را  انجام دهید.",
+  "User_Not_Found":" با این شماره موبایل نام کاربری یافت نشد ",
+  "PhoneNumber_Or_OtpCode_Is_Not_Valid":"شماره موبایل یا کد تأیید اشتباه است",
+  "The_Number_Of_Requested_Messages_Exceeds_The_Allowed_Limit":"خطای محدودیت استفاده از شماره موبایل",
+  "NewPassword_Must_Not_Be_Less_Than_8_Characters":"کلمه عبور جدید نباید کمتر از 8 پارامتر باشد"
+}
