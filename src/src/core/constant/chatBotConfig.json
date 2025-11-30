@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://chatbot.holoobot.com",
+  "baseUrlApi": "https://sales.holoobot.com/faq",
+  "baseUrl_script": "https://chatbot.holoobot.com/widget",
+  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3aWRnZXRfaWQiOiIzIn0.Co7bJfi_UpCBUDaHXsur4TgyzhHCk2owMwUUNabCvnPtwc2FiFYnThos-DB5XpQ7jR3pN_Nuvi-rMGTTdbDEXP9ZueFU6fvc9aI54T-efVP2rofu97pNfT6V0_REkczSB2ZcJtUqjZskTBB4PZ49VN0-CyxerRlLrciZwOHxUQ5HJ5bBcu7Jd0Y3dpJ-LkoUN3LTnYfCE1rdhPHhDxcM5VSRUhZp8tvTdWJ4_ZsrmGozMJ6WYmhVXBAYmvpesy53UdAXPtiusVyKdXjoJTxn0uErUG7IMECQE1cOexC2g8ZkKNvHYOQK5PD9ots0NecZS0jWfwioV0HFH5QxNhXsHHauzGe-HRBEU6_IMQRLAcS5pcJrIxtmmqT4EgFO1J_YY9DGGH3iEP7tdjyIxwov8om_Ua36Zv87k7RkCrnsfa4o0EmvwXCEOZd-exNgRCRKfceyrQCxhb8-XOkygAPu4c3w5NWGrITtEgZEQeRy2B8FJzEMSbEG18--AqkqpH4slzxXxyhYnaVmMxyz3PLDLe2rL6ytzu7cnhu3y_-1cqZ4nYDTQG6tEXBs9A1GbtDEc68kxatQxni_f1KtMW_ku6KxZ1XtMtXqQOPYc2dRUydrae3-Ccf9sVNGy1QgQcltw3-dre2R6EJaSPYdpkBv1aJyF_gj5w9Uwj434wP2lJQ",
+  "baseUrlApiChatBot": "https://supportbot.holoobot.com/"
+}

@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext",
+            "webworker"
+        ],
+        "typeRoots": [
+            "./types",
+            "./node_modules/@types"
+        ],
+        "types": [
+            "vitest/globals", // Add this line
+            // ... potentially other types like "jest", "node", etc.
+        ]
+    },
+    "files": [],
+    "references": [
+        {
+            "path": "./tsconfig.app.json"
+        },
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
+}

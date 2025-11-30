@@ -1,0 +1,20 @@
+export interface UnsettledInvoicesDataDetails {
+    invoiceCode: string,
+    customerName: string,
+    invoiceDate: string,
+    invoiceAmount: number,
+    formattedInvoiceAmount: string,
+    invoiceAmountUOM: string,
+    unCreditAmount: number,
+    formattedUnCreditAmount: string,
+    unCreditAmountUOM: string,
+    settlementDate: string,
+    settelementBalance: number,
+    formattedSettelementBalance: string,
+    settelementBalanceUOM: string,
+    sellerCode: string,
+    sellerName: string,
+    paidAmount: number,
+    formattedPaidAmount: string,
+    paidAmountUOM: string
+}
