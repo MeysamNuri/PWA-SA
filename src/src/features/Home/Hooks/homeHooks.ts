@@ -6,9 +6,11 @@ import {
 } from 'react';
 import useSalesRevenue from './APIHooks/useSalesRevenue';
 import {
-    type SalesRevenueTransformedItem, type ICurrencyData,
+   
     introAppList
-} from '../types';
+} from '@core/constant/introAppStepsList';
+
+import { type SalesRevenueTransformedItem, type ICurrencyData} from  '../types'
 import useNearDueCheques from './APIHooks/useNearDueCheques';
 import useGetAvailableFunds from '@/features/AvailableFunds/Hooks/APIHooks/getAvailableFunds';
 import {

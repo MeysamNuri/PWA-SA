@@ -1,113 +1,134 @@
-import React from 'react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
 import HomeView from './homeView';
-import { MemoryRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'; // <-- React Query
 
-// -------------------- MOCKS --------------------
-
-// MUI Box
-vi.mock('@mui/material', () => ({
-  Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+// -----------------------
+// Mock AjaxLoadingComponent
+// -----------------------
+vi.mock('@/core/components/ajaxLoadingComponent', () => ({
+  default: () => <div data-testid="loading">Loading...</div>,
 }));
 
-// Framer Motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...rest }: any) => <div {...rest}>{children}</div>,
-  },
+// -----------------------
+// Mock getComponentMap
+// -----------------------
+const mockGetComponentMap = vi.fn();
+vi.mock('../Hooks/componentMapHook', () => ({
+  getComponentMap: (...args: any[]) => mockGetComponentMap(...args),
 }));
 
-// Child components
-vi.mock('../Components/Reports', () => ({
-  default: ({ id }: { id: string }) => <div>Reports Component - {id}</div>,
-}));
-vi.mock('../Components/DynamicCards', () => ({
-  default: ({ id }: { id: string }) => <div>DynamicCard Component - {id}</div>,
-}));
-vi.mock('../Components/Currencies', () => ({
-  default: () => <div>Currencies Component</div>,
-}));
-vi.mock('../Components/UnsettledInvoices', () => ({
-  default: () => <div>UnsettledInvoices Component</div>,
-}));
-vi.mock('../Components/TopCustomersSellers', () => ({
-  default: ({ isTopSeller }: { isTopSeller: boolean }) => (
-    <div>{isTopSeller ? 'Top Sellers Component' : 'Top Customers Component'}</div>
-  ),
-}));
-vi.mock('@/core/components/profitNotFound', () => ({
-  default: ({ message }: { message: string }) => <div>{message}</div>,
-}));
-
-// Hooks
-vi.mock('../Hooks/homeHooks', () => ({
-  default: vi.fn(),
-}));
+// -----------------------
+// Mock useHomeCustomizationSettings
+// -----------------------
+const mockUseHomeCustomizationSettings = vi.fn();
 vi.mock('@/features/HomeCustomization/Hooks/useHomeCustomizationSettings', () => ({
-  useHomeCustomizationSettings: vi.fn(),
+  useHomeCustomizationSettings: () => mockUseHomeCustomizationSettings(),
 }));
 
-// Mock useNavigate
-vi.mock('react-router', () => ({
-  useNavigate: () => vi.fn(),
+// -----------------------
+// Mock useTopProductsData
+// -----------------------
+const mockUseTopProductsData = vi.fn();
+vi.mock('../Hooks/topProductsHooks', () => ({
+  default: () => mockUseTopProductsData(),
 }));
 
-import useHomeHooks from '../Hooks/homeHooks';
-import { useHomeCustomizationSettings } from '@/features/HomeCustomization/Hooks/useHomeCustomizationSettings';
+// -----------------------
+// Mock useHomeHooks
+// -----------------------
+const mockUseHomeHooks = vi.fn();
+vi.mock('../Hooks/homeHooks', () => ({
+  default: () => mockUseHomeHooks(),
+}));
 
-// -------------------- Helper --------------------
-const queryClient = new QueryClient();
-const wrapper = (ui: React.ReactElement) => (
-  <QueryClientProvider client={queryClient}>
-    <MemoryRouter>{ui}</MemoryRouter>
-  </QueryClientProvider>
-);
-
-describe('HomeView Component', () => {
+describe('HomeView', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('renders ProfitNotFound when there are no parsed items', () => {
-    (useHomeHooks as any).mockReturnValue({ parsedSortItems: [] });
-    (useHomeCustomizationSettings as any).mockReturnValue({
-      isComponentEnabled: vi.fn().mockReturnValue(true),
+  // -----------------------
+  // TEST 1 — Loading State
+  // -----------------------
+  it('shows loading component when loading=true', () => {
+    mockUseHomeHooks.mockReturnValue({
+      parsedSortItems: [],
+      currencyLoading: true,
+      unsettledInvoicesLoading: true,
+      availablefundsLoading: true,
+      nearChequesLoading: true,
+      pageNameDataLoading: true,
+      salesRevenueLoading: true,
     });
 
-    render(wrapper(<HomeView />));
+    mockUseTopProductsData.mockReturnValue({ loading: true });
+    mockUseHomeCustomizationSettings.mockReturnValue({
+      isComponentEnabled: () => true,
+    });
 
-
+    render(<HomeView />);
+    expect(screen.getByTestId('loading')).toBeInTheDocument();
   });
 
-  it('renders components based on parsedSortItems', () => {
-    (useHomeHooks as any).mockReturnValue({
-      parsedSortItems: [
-        { pageId: '1', pageName: 'salesrevenue' },
-        { pageId: '2', pageName: 'currencyrates' },
-        { pageId: '3', pageName: 'topsellers' },
-      ],
-      cardsData: [],
-      open: false,
-      handleClickOpen: vi.fn(),
-      handleClose: vi.fn(),
-      currencyTableData: [],
+  // -----------------------
+  // TEST 2 — Renders a mapped component
+  // -----------------------
+  it('renders component from getComponentMap', () => {
+    mockUseHomeHooks.mockReturnValue({
+      parsedSortItems: [{ pageId: 1, pageName: 'salesrevenue' }],
       currencyLoading: false,
-      handleCurrencyRatesClick: vi.fn(),
-      unsettledInvoicesData: { Data: [] },
       unsettledInvoicesLoading: false,
-      unsettledInvoicesError: false,
+      availablefundsLoading: false,
+      nearChequesLoading: false,
+      pageNameDataLoading: false,
+      salesRevenueLoading: false,
     });
 
-    (useHomeCustomizationSettings as any).mockReturnValue({
-      isComponentEnabled: vi.fn().mockReturnValue(true),
+    mockUseTopProductsData.mockReturnValue({ loading: false });
+
+    mockUseHomeCustomizationSettings.mockReturnValue({
+      isComponentEnabled: () => true,
     });
 
-    render(wrapper(<HomeView />));
+    mockGetComponentMap.mockReturnValue({
+      salesrevenue: {
+        Component: () => <div data-testid="mapped-component">Shown</div>,
+        props: {},
+      },
+    });
 
-    expect(screen.getByText(/DynamicCard Component - salesrevenue/i)).toBeInTheDocument();
-    expect(screen.getByText(/Currencies Component/i)).toBeInTheDocument();
-    expect(screen.getByText(/Top Sellers Component/i)).toBeInTheDocument();
+    render(<HomeView />);
+    expect(screen.getByTestId('mapped-component')).toBeInTheDocument();
+  });
+
+  // -----------------------
+  // TEST 3 — Disabled component
+  // -----------------------
+  it('does not render component if isComponentEnabled=false', () => {
+    mockUseHomeHooks.mockReturnValue({
+      parsedSortItems: [{ pageId: 1, pageName: 'salesrevenue' }],
+      currencyLoading: false,
+      unsettledInvoicesLoading: false,
+      availablefundsLoading: false,
+      nearChequesLoading: false,
+      pageNameDataLoading: false,
+      salesRevenueLoading: false,
+    });
+
+    mockUseTopProductsData.mockReturnValue({ loading: false });
+
+    mockUseHomeCustomizationSettings.mockReturnValue({
+      isComponentEnabled: () => false,
+    });
+
+    mockGetComponentMap.mockReturnValue({
+      salesrevenue: {
+        Component: () => <div data-testid="mapped-component">Hidden</div>,
+        props: {},
+      },
+    });
+
+    render(<HomeView />);
+
+    expect(screen.queryByTestId('mapped-component')).not.toBeInTheDocument();
   });
 });
